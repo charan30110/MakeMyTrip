@@ -9,6 +9,9 @@ const Users = new Mongoose.Schema({
         required: true,
         type: String
     },
+    phone:{
+        type: String,
+    },
     role: {
         type: String,
         required: true,

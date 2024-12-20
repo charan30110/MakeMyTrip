@@ -17,7 +17,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/makemytrip")
     .catch((err) => { console.log(err) })
 
 const loginRoutes = require('./routes/login.route')
-app.use('/login',loginRoutes)
+app.use('/',loginRoutes)
 
 app.get('/', (req, res) => {
     res.status(200).send("hello page")

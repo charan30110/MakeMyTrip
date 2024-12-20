@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import bg4 from '../assets/bg4.jpg';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios'
 
 function Register() {
 
@@ -13,6 +16,7 @@ function Register() {
   const handleChange = (e) => {
     e.preventDefault()
     let { name, value } = e.target
+    if(name==='uname') value = value.trim()
     if (name === "phone")
       value = value.replaceAll(/[^0-9]/g, '')
     setFormData({
@@ -21,9 +25,41 @@ function Register() {
     })
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleValidation = () => {
+    const { uname, password, reTypePassword, phone } = formData;
+    toast.dismiss()
+    if (!(uname.trim() && password.trim() && reTypePassword.trim() && phone.trim())) {
+      toast.error("All fields are required", { position: 'top-right', autoClose: 2500 })
+      return false
+    } else if (password !== reTypePassword) {
+      toast.error("Enter the same passwords", { position: 'top-right', autoClose: 2500 })
+      return false
+    } else if (phone.length !== 10) {
+      toast.error("Phone number must be 10 digits", { position: 'top-right', autoClose: 2500 })
+      return false
+    } else {
+      return true
+    }
+  }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!handleValidation()) return;
+    try {
+      let res = await axios.post('http://localhost:4002/register', { formData }, { withCredentials: true })
+        .catch((error) => {
+          throw error
+        })
+      if (res) {
+        toast.dismiss()
+        toast.success("Registered Successfully!!!", { position: 'top-right', autoClose: 2500 })
+        toast.success("You can login now!!!", { position: 'top-right', autoClose: 2500 })
+      }
+    } catch (error) {
+      console.log(error)
+      toast.dismiss()
+      toast.error(error.response.data, { position: 'top-right', autoClose: 2500 })
+    }
   }
 
   return (
@@ -88,7 +124,7 @@ function Register() {
           />
         </div>
         <div style={styles.formItem}>
-          <button style={styles.formButton}>Submit</button>
+          <button style={styles.formButton}>Register</button>
         </div>
       </form>
     </div>
@@ -128,7 +164,7 @@ const styles = {
     marginBottom: '1%',
     fontSize: '1rem',
     fontStyle: 'italic',
-    fontWeight:'bold'
+    fontWeight: 'bold'
   },
   formInput: {
     padding: '1.5%',
