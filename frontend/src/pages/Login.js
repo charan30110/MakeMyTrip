@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 function Login() {
 
-  const [cookies] = useCookies()
+  const [cookies, , removeCookie] = useCookies()
   const navigate = useNavigate()
   const location = useLocation()
   const [formData, setFormData] = useState({
@@ -16,13 +16,17 @@ function Login() {
     password: ''
   })
 
+  const role = localStorage.getItem('role')
+  const uname = localStorage.getItem('uname')
+
   useEffect(() => {
-    if (cookies.jwt) {
-      navigate(-1)
+    if(role && uname && role.trim() && uname.trim() && cookies.jwt){
+      toast.error("Logout first to login again", { position: 'top-right', autoClose: 2500 })
+      navigate(`${role}/`)
     } else {
       localStorage.clear()
     }
-  }, [location.pathname, cookies.jwt, navigate])
+  }, [location.pathname, cookies.jwt, navigate, removeCookie,role,uname])
 
   const handleChange = (e) => {
     e.preventDefault()
