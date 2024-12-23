@@ -17,7 +17,11 @@ mongoose.connect("mongodb://127.0.0.1:27017/makemytrip")
     .catch((err) => { console.log(err) })
 
 const loginRoutes = require('./routes/login.route')
+const adminRoutes = require('./routes/admin.route')
+const customerRoutes = require('./routes/customer.route')
 app.use('/',loginRoutes)
+app.use('/admin',adminRoutes)
+app.use('/customer',customerRoutes)
 
 app.get('/', (req, res) => {
     res.status(200).send("hello page")

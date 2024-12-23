@@ -9,17 +9,19 @@ function PrivateRoute() {
     const [cookies, , removeCookies] = useCookies();
 
     const [isToastShown, setIsToastShown] = useState(false);
+    const isLoggingOut = localStorage.getItem('isLoggingOut')
 
     useEffect(() => {
         if (!cookies.jwt || !cookies.jwt.trim()) {
-            if (!isToastShown) {
+            console.log(isLoggingOut)
+            if (!isToastShown && !isLoggingOut) {
                 toast.error('Not Authorized', { position: 'top-right', autoClose: 2500 });
                 setIsToastShown(true);
             }
             removeCookies('jwt')
             navigate('/');
         }
-    },[navigate,cookies.jwt,removeCookies,isToastShown])
+    }, [navigate, cookies.jwt, removeCookies, isToastShown, isLoggingOut])
 
     return (
         <>

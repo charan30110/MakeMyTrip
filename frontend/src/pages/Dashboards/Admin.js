@@ -2,20 +2,13 @@ import React, { } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 
-function Customer() {
+import newRoute from '../../assets/bg1.jpg'
+import viewRoute from '../../assets/bg6.jpg'
+
+function Admin() {
 
   const navigate = useNavigate()
   const [, , removeCookie] = useCookies([]);
-
-  const handleView=()=>{
-    navigate('view/')
-  }
-  const handleBook=()=>{
-    navigate('book/')
-  }
-  const handleCancel=()=>{
-    navigate('cancel/')
-  }
 
   const handleLogout = () => {
     localStorage.clear()
@@ -24,9 +17,17 @@ function Customer() {
     navigate('/')
   }
 
+  const handleNewRoute = () => {
+    navigate('newRoute/')
+  }
+
+  const handleViewRoutes = () => {
+    navigate('viewRoutes/')
+  }
+
   const Header = () => (
     <header style={headerStyles.header}>
-      <span style={headerStyles.title}>MakeMyTrip</span>
+      <span style={headerStyles.title}>NIEPID</span>
       <button onClick={handleLogout} style={headerStyles.button}>
         Logout
       </button>
@@ -40,21 +41,22 @@ function Customer() {
   )
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column'}}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       <Header />
       <div style={styles.container}>
-        <div style={styles.container1}>
-          <div style={styles.subContainer} onClick={handleBook}>
-            <p style={styles.subContainerText}>Book</p>
-          </div>
-          <div style={styles.subContainer} onClick={handleCancel}>
-            <p style={styles.subContainerText}>Cancel</p>
-          </div>
+        <div 
+        style={{
+          ...styles.subContainer,
+          backgroundImage:`url(${newRoute})`
+        }} onClick={handleNewRoute}>
+          <p style={styles.subContainerText}>New Route</p>
         </div>
-        <div style={styles.container1}>
-          <div style={styles.subContainer} onClick={handleView}>
-            <p style={styles.subContainerText}>View</p>
-          </div>
+        <div 
+        style={{
+          ...styles.subContainer,
+          backgroundImage:`url(${viewRoute})`
+        }} onClick={handleViewRoutes}>
+          <p style={styles.subContainerText}>View Routes</p>
         </div>
       </div>
       <Footer />
@@ -64,15 +66,10 @@ function Customer() {
 
 const styles = {
   container: {
-    display:'flex',
-    flexDirection:'column',
-    height:'100%'
-  },
-  container1:{
-    display:'flex',
-    flexDirection:'row',
-    justifyContent:'space-around',
-    height:'100%'
+    display: 'flex',
+    justifyContent: 'space-around',
+    flexWrap: 'wrap',
+    height:'100%',
   },
   subContainer: {
     display: 'flex',
@@ -85,7 +82,7 @@ const styles = {
     padding: '2vw',
     margin: '5vw 0',
     width:'30%',
-    height:'40vh',
+    height:'60%',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
@@ -127,8 +124,9 @@ const footerStyles = {
     backgroundColor: '#Af5',
     textAlign: 'center',
     fontSize: '1.5vw',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    width: '100vw',
   }
 };
 
-export default Customer
+export default Admin
