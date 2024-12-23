@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const VehicleRouteList = () => {
+const Book = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [selectedRoute, setSelectedRoute] = useState(null); // Track the selected route
@@ -174,4 +174,4 @@ const styles = {
   },
 };
 
-export default VehicleRouteList;
+export default Book;

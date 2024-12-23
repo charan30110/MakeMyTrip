@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { toast } from 'react-toastify';
 
-const VehicleRouteList = () => {
+const View = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([])
 
@@ -101,4 +101,4 @@ const styles = {
   },
 };
 
-export default VehicleRouteList;
+export default View;

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { AiOutlineLeft } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom'
 
-function VehicleRouteForm() {
+function NewRoute() {
   const [formData, setFormData] = useState({
     id: '',
     mode: '',
@@ -250,4 +250,4 @@ function VehicleRouteForm() {
   );
 }
 
-export default VehicleRouteForm;
+export default NewRoute;
